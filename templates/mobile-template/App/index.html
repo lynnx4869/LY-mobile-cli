@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>App</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="MobileOptimized" content="320">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="initial-scale=1.0,
+                maximum-scale=1.0,
+                minimum-scale=1.0,
+                user-scalable=no"/>
+</head>
+<body>
+<div id="app" style="overflow: hidden;"></div>
+<script rel="script" src="./vendor.bundle.js"></script>
+<!--<script rel="script" src="./bundle.js"></script>-->
+<script rel="script" type="text/javascript">
+    function isAndroid() {
+        var ua = navigator.userAgent.toLowerCase();
+        var isA = ua.indexOf("android") > -1;
+        if (isA) {
+            return true;
+        }
+        return false;
+    }
+
+    function isIphone() {
+        var ua = navigator.userAgent.toLowerCase();
+        var isIph = ua.indexOf("iphone") > -1;
+        if (isIph) {
+            return true;
+        }
+        return false;
+    }
+
+    function loadjs(filename) {
+        var js = document.createElement('script');
+        js.setAttribute('type', 'text/javascript');
+        js.setAttribute('src', filename);
+        document.documentElement.appendChild(js);
+    }
+
+    if (isAndroid()) {
+        loadjs('./WebViewBridgingJSForAndroid.js');
+    }
+
+    if (isIphone()) {
+        loadjs('./WebViewBridgingJSForiOS.js');
+    }
+</script>
+</body>
+</html>
