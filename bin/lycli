@@ -15,14 +15,6 @@ program
     .usage('<command>')
 
 program
-    .command('list')
-    .description('List all the templates')
-    .alias('l')
-    .action(() => {
-        require('../command/list')()
-    })
-
-program
     .command('init')
     .description('Generate a new project')
   .alias('i')
