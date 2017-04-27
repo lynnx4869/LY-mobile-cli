@@ -6,6 +6,7 @@ const co = require('co');
 const prompt = require('co-prompt');
 const chalk = require('chalk');
 const path = require('path');
+const os = require('os');
 const fileUtil = require('../public/fileUtil.js');
 const cmdUtil = require('../public/cmdUtil.js');
 
@@ -58,7 +59,13 @@ module.exports = () => {
         yield fileUtil.makeDir(projectPath);
         yield fileUtil.copyFile(originPath + '/mobile-template.zip',
             projectPath + '/mobile-template.zip');
-        yield cmdUtil('unzip ' + projectPath + '/mobile-template.zip', projectPath);
+
+        let type = os.type();
+        if (type == 'Windows_NT') {
+            yield cmdUtil('expand ' + projectPath + '/mobile-template.zip', projectPath);
+        } else {
+            yield cmdUtil('unzip ' + projectPath + '/mobile-template.zip', projectPath);
+        }
 
         yield fileUtil.createFile(projectPath + '/package.json', packageJson);
 

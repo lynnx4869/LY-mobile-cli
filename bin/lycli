@@ -22,6 +22,14 @@ program
     require('../command/init')()
   })
 
+program
+    .command('system')
+    .description('print current system infomation')
+    .alias('s')
+    .action(() => {
+      require('../command/system')()
+    })
+
 program.parse(process.argv)
 
 if(!program.args.length){

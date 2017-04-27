@@ -1,6 +1,6 @@
 {
   "name": "ly-mobile-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "mobile cli",
   "main": "index.js",
   "scripts": {
@@ -29,6 +29,7 @@
     "co-prompt": "^1.0.0",
     "commander": "^2.9.0",
     "fs": "0.0.1-security",
+    "os": "^0.1.1",
     "path": "^0.12.7"
   }
 }
