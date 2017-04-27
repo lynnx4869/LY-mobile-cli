@@ -57,17 +57,17 @@ module.exports = () => {
         const originPath = path.resolve(__dirname + '/../templates/mobile-template');
 
         yield fileUtil.makeDir(projectPath);
-        yield fileUtil.copyFile(originPath + '/mobile-template.zip',
-            projectPath + '/mobile-template.zip');
+        yield fileUtil.copyFile(path.join(originPath, 'mobile-template.zip'),
+            path.join(projectPath, 'mobile-template.zip'));
 
         let type = os.type();
         if (type == 'Windows_NT') {
-            yield cmdUtil('expand ' + projectPath + '/mobile-template.zip', projectPath);
+            yield cmdUtil('expand ' + path.join(projectPath, 'mobile-template.zip'), projectPath);
         } else {
-            yield cmdUtil('unzip ' + projectPath + '/mobile-template.zip', projectPath);
+            yield cmdUtil('unzip ' + path.join(projectPath, 'mobile-template.zip'), projectPath);
         }
 
-        yield fileUtil.createFile(projectPath + '/package.json', packageJson);
+        yield fileUtil.createFile(path.join(projectPath, 'package.json'), packageJson);
 
         let cmdStr1 = 'sudo npm i --save react react-dom react-router@3.x ' +
             'superagent moment lodash watchjs';
