@@ -60,23 +60,26 @@ module.exports = () => {
         yield fileUtil.copyFile(path.join(originPath, 'mobile-template.zip'),
             path.join(projectPath, 'mobile-template.zip'));
 
+        let cmdStr1 = 'npm i --save react react-dom react-router@3.x ' +
+            'superagent moment lodash watchjs';
+        let cmdStr2 = 'npm i --save-dev babel-core babel-loader ' +
+            'babel-plugin-transform-runtime babel-preset-env babel-preset-react' +
+            ' copy-webpack-plugin css-loader file-loader path style-loader url-loader webpack';
+
         let type = os.type();
         if (type == 'Windows_NT') {
-            yield cmdUtil('expand ' + path.join(projectPath, 'mobile-template.zip'), projectPath);
+            yield cmdUtil('expand ' + path.join(projectPath, 'mobile-template.zip') + ' ' + projectPath, projectPath);
         } else {
             yield cmdUtil('unzip ' + path.join(projectPath, 'mobile-template.zip'), projectPath);
+            cmdStr1 = 'sudo ' + cmdStr1;
+            cmdStr2 = 'sudo ' + cmdStr2;
         }
 
         yield fileUtil.createFile(path.join(projectPath, 'package.json'), packageJson);
 
-        let cmdStr1 = 'sudo npm i --save react react-dom react-router@3.x ' +
-            'superagent moment lodash watchjs';
         console.log(chalk.green('npm dependencies run ...'));
         yield cmdUtil(cmdStr1, projectPath);
 
-        let cmdStr2 = 'sudo npm i --save-dev babel-core babel-loader ' +
-            'babel-plugin-transform-runtime babel-preset-env babel-preset-react' +
-            ' copy-webpack-plugin css-loader file-loader path style-loader url-loader webpack';
         console.log(chalk.green('npm devDependencies run ...'));
         yield cmdUtil(cmdStr2, projectPath);
 
